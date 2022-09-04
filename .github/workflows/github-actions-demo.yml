@@ -24,3 +24,10 @@ jobs:
           node-version: 16
       - run: yarn
       - run: yarn hello
+  MatrixJobs:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest]
+    steps:
+      - run: echo deploy on ${{ matrix.os }}
