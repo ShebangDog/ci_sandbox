@@ -1,0 +1,8 @@
+{
+  "name": "ci_sandbox",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ShebangDog/ci_sandbox.git",
+  "author": "ShebangDog <twilight.sky.asterisk@gmail.com> (https://github.com/ShebangDog)",
+  "license": "MIT"
+}
