@@ -1,7 +1,5 @@
 name: GitHub Actions Demo
-on:
-  issue_comment:
-    types: [edited]
+on: issue_comment
 
 jobs:
     # This job only runs for pull request comments
