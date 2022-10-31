@@ -6,8 +6,8 @@ on:
 jobs:
     # This job only runs for pull request comments
     notify-edited:
-    name: PR comment
-    if: ${{ github.event.issue.pull_request }}
-    runs-on: ubuntu-latest
-    steps:
-        - run: echo detected-editing
+      name: PR comment
+      if: ${{ github.event.issue.pull_request }}
+      runs-on: ubuntu-latest
+      steps:
+          - run: echo detected-editing
