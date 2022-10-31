@@ -4,7 +4,6 @@ on:
     types: edited
 
 jobs:
-  pr_commented:
     # This job only runs for pull request comments
     notify-edited:
       if: ${{ github.event.issue.pull_request }}
