@@ -1,5 +1,7 @@
 name: PR Commented
-on: [issue_comment]
+on:
+  issue_comment:
+    types: [created, edited]
 jobs:
   pr_commented:
     # This job only runs for pull request comments
