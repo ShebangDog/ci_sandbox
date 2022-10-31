@@ -1,0 +1,9 @@
+on:
+  pull_request:
+    types:
+      - edited
+jobs:
+  notify-edited:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo detected-editing
