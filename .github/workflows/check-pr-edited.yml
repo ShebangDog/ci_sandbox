@@ -1,9 +1,11 @@
-on: pull_request_comment
+name: PR Commented
+on: issue_comment
 
 jobs:
   pr_commented:
     # This job only runs for pull request comments
     name: PR comment
+    if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
       - run: |
