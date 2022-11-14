@@ -11,7 +11,6 @@ jobs:
     steps:
       - run: |
           echo A comment on PR $NUMBER
-          echo ${{ github.event.issue.changes }}
         env:
           NUMBER: ${{ github.event.issue.number }}
 
