@@ -17,7 +17,7 @@ jobs:
         env:
           NUMBER: ${{ github.event.issue.number }}
           CHANGES: ${{ github.event.changes }}
-          FROM: ${{ github.event.changes[body][from] }}
+#          FROM: ${{ github.event.changes[body][from] }}
 
   issue_commented:
     # This job only runs for issue comments
