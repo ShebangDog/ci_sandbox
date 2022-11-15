@@ -16,11 +16,12 @@ jobs:
           echo $CHANGES
           echo '${{ toJson(github.event.changes) }}' | jq ".body.from"
           echo '${{ toJson(github.event.comment) }}' | jq ".body"
+          echo "prev_state=${{ toJson(github.event.changes) }}" >> $GITHUB_ENV
+          echo ${{ env.prev_state }}
         env:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ toJson(github.event.comment) }}
           CHANGES: ${{ toJson(github.event.changes) }}
-#          FROM: ${{ github.event.changes[body][from] }}u
 
   issue_commented:
     # This job only runs for issue comments
