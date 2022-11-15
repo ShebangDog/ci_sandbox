@@ -12,12 +12,14 @@ jobs:
       - run: |
           echo A comment on PR $NUMBER
           echo change
+          echo $COMMENT
           echo $CHANGES
           echo $FROM
         env:
           NUMBER: ${{ github.event.issue.number }}
-          CHANGES: ${{ toJson(github.event.comment) }}
-#          FROM: ${{ github.event.changes[body][from] }}
+          COMMENT: ${{ toJson(github.event.comment) }}
+          CHANGES: ${{ toJson(github.event.changes) }}
+#          FROM: ${{ github.event.changes[body][from] }}u
 
   issue_commented:
     # This job only runs for issue comments
