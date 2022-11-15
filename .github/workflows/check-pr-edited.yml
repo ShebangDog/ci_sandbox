@@ -21,11 +21,13 @@ jobs:
           wc -l |
           xargs echo |
           xargs printf "%s%s\n" "checkbox_count=" >> $GITHUB_ENV
-          echo "${{ env.checkbox_count }}"
         env:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ toJson(github.event.comment) }}
           CHANGES: ${{ toJson(github.event.changes) }}
+      - run: |
+          echo "have no task"
+        if: ${{ env.checkbox_count == 0 }}
 
   issue_commented:
     # This job only runs for issue comments
