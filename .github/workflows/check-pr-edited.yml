@@ -17,7 +17,7 @@ jobs:
           echo '${{ toJson(github.event.changes) }}' | jq ".body.from"
           echo '${{ toJson(github.event.comment) }}' | jq ".body"
           echo "prev_state=${{ toJson(github.event.changes) }}" >> $GITHUB_ENV
-          echo ${{ env.prev_state }}
+          echo "${{ env.prev_state }}"
         env:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ toJson(github.event.comment) }}
