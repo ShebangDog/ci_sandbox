@@ -14,7 +14,8 @@ jobs:
           echo change
           echo $COMMENT
           echo $CHANGES
-          echo $FROM
+          ${{ toJson(github.event.changes) }} | jq ".body.from"
+          ${{ toJson(github.event.comment) }} | jq ".body"
         env:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ toJson(github.event.comment) }}
