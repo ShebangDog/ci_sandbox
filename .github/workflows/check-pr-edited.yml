@@ -20,7 +20,8 @@ jobs:
           grep -o "\- \[ \]" |
           wc -l |
           xargs echo |
-          xargs printf "%s%s\n" "checkbox_count=" >> $GITHUB_ENV
+          xargs printf "%s%s\n" "checkbox_count=" |
+          xargs echo >> $GITHUB_ENV
         env:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ toJson(github.event.comment) }}
