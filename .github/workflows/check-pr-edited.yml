@@ -12,6 +12,7 @@ jobs:
       - run: |
           echo '${{ toJson(github.event.changes) }}' | jq ".body.from" | xargs echo "previous value: " >> message
           echo '${{ toJson(github.event.comment) }}' | jq ".body" | xargs echo "current value: " >> message
+          cat message
           
           echo '${{ toJson(github.event.changes) }}' | 
           jq ".body.from" |
