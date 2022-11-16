@@ -10,41 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo '${{ toJson(github.event.changes) }}' | jq ".body.from" | xargs echo "previous value: " >> message
-          echo '${{ toJson(github.event.comment) }}' | jq ".body" | xargs echo "current value: " >> message
+          echo '${{ toJson(github.event.changes) }}' | jq ".body.from" | xargs echo "previous value:" >> message
+          echo '${{ toJson(github.event.comment) }}' | jq ".body" | xargs echo "current value:" >> message
           cat message
           
           echo '${{ toJson(github.event.changes) }}' | 
           jq ".body.from" |
           grep -oE "\- \[ \]|\- \[x\]" |
           wc -l |
-          xargs echo |
-          xargs printf "%s%s\n" "previous_task_count=" |
-          xargs echo >> $GITHUB_ENV
+          xargs -IVAL echo "previous_task_count=VAL" >> $GITHUB_ENV
           
           echo '${{ toJson(github.event.comment) }}' | 
           jq ".body" |
           grep -oE "\- \[ \]|\- \[x\]" |
           wc -l |
-          xargs echo |
-          xargs printf "%s%s\n" "current_task_count=" |
-          xargs echo >> $GITHUB_ENV
+          xargs -IVAL echo "current_task_count=VAL" >> $GITHUB_ENV
           
           echo '${{ toJson(github.event.comment) }}' | 
           jq ".body" |
           grep -oE "\- \[x\]" |
           wc -l |
-          xargs echo |
-          xargs printf "%s%s\n" "finished_task_count=" |
-          xargs echo >> $GITHUB_ENV
+          xargs -IVAL echo "finished_task_count=VAL" >> $GITHUB_ENV
           
           echo '${{ toJson(github.event.changes) }}' | 
           jq ".body.from" |
           grep -oE "\- \[ \]" |
           wc -l |
-          xargs echo |
-          xargs printf "%s%s\n" "unfinished_task_count=" |
-          xargs echo >> $GITHUB_ENV
+          xargs -IVAL echo "unfinished_task_count=VAL" >> $GITHUB_ENV
 
         env:
           NUMBER: ${{ github.event.issue.number }}
