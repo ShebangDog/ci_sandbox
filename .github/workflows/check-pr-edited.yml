@@ -38,10 +38,6 @@ jobs:
           wc -l |
           xargs -IVAL echo "unfinished_task_count=VAL" >> $GITHUB_ENV
 
-        env:
-          NUMBER: ${{ github.event.issue.number }}
-          COMMENT: ${{ toJson(github.event.comment) }}
-          CHANGES: ${{ toJson(github.event.changes) }}
       - run: |
           echo "task is complete"
         if: ${{ env.finished_task_count == 1 && env.unfinished_task_count == 1 && env.previous_task_count == 1 && env.current_task_count == 1 }}
