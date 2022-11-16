@@ -15,20 +15,46 @@ jobs:
           echo $COMMENT
           echo $CHANGES
           echo '${{ toJson(github.event.changes) }}' | jq ".body.from"
-          echo '${{ toJson(github.event.comment) }}' | 
-          jq ".body" |
-          grep -o "\- \[ \]" |
+          
+          echo '${{ toJson(github.event.changes) }}' | 
+          jq ".body.from" |
+          grep -oE "\- \[ \]|\- \[x\]" |
           wc -l |
           xargs echo |
-          xargs printf "%s%s\n" "checkbox_count=" |
+          xargs printf "%s%s\n" "previous_task_count=" |
           xargs echo >> $GITHUB_ENV
+          
+          echo '${{ toJson(github.event.comment) }}' | 
+          jq ".body" |
+          grep -oE "\- \[ \]|\- \[x\]" |
+          wc -l |
+          xargs echo |
+          xargs printf "%s%s\n" "current_task_count=" |
+          xargs echo >> $GITHUB_ENV
+          
+          echo '${{ toJson(github.event.comment) }}' | 
+          jq ".body" |
+          grep -oE "\- \[x\]" |
+          wc -l |
+          xargs echo |
+          xargs printf "%s%s\n" "finished_task_count=" |
+          xargs echo >> $GITHUB_ENV
+          
+          echo '${{ toJson(github.event.changes) }}' | 
+          jq ".body.from" |
+          grep -oE "\- \[ \]" |
+          wc -l |
+          xargs echo |
+          xargs printf "%s%s\n" "unfinished_task_count=" |
+          xargs echo >> $GITHUB_ENV
+
         env:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ toJson(github.event.comment) }}
           CHANGES: ${{ toJson(github.event.changes) }}
       - run: |
-          echo "have no task"
-        if: ${{ env.checkbox_count == 0 }}
+          echo "task is complete"
+        if: ${{ env.finished_task_count == 1 && env.unfinished_task_count == 1 && env.previous_task_count == 1 && env.current_task_count == 1 }}
 
   issue_commented:
     # This job only runs for issue comments
