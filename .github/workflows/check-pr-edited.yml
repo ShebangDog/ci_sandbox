@@ -10,11 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo A comment on PR $NUMBER
-          echo change
-          echo $COMMENT
-          echo $CHANGES
-          echo '${{ toJson(github.event.changes) }}' | jq ".body.from"
+          echo '${{ toJson(github.event.changes) }}' | jq ".body.from" | xargs echo "previous value: " >> message
+          echo '${{ toJson(github.event.comment) }}' | jq ".body" | xargs echo "current value: " >> message
           
           echo '${{ toJson(github.event.changes) }}' | 
           jq ".body.from" |
