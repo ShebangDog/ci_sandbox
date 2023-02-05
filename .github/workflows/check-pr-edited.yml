@@ -50,7 +50,7 @@ jobs:
       - name: gh api
         id: make-destination-branch-name
         run: |
-          gh api /repos/ShebangDog/ci_sandbox/issues/${{github.event.issue.number}}/comments |
+          gh api /repos/ShebangDog/ci_sandbox/pulls/${{github.event.issue.number}} |
           jq .head.ref |
           xargs -IVAL echo  "branch_name=VAL" >> $GITHUB_OUTPUT
         env:
