@@ -47,5 +47,6 @@ jobs:
       - run: echo ${{ github.head_ref }}
       # GitHub CLI api
       # https://cli.github.com/manual/gh_api
-      - run: gh api -H "Accept: application/vnd.github+json" /repos/ShebangDog/ci_sandbox/pulls/${{github.event.issue.number}}/comments
-      
+      - name: gh api
+        run: gh api /repos/ShebangDog/ci_sandbox/pulls/${{github.event.issue.number}}/comments
+
