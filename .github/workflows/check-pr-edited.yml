@@ -48,8 +48,21 @@ jobs:
       # GitHub CLI api
       # https://cli.github.com/manual/gh_api
       - name: gh api
-        run: gh api /repos/ShebangDog/ci_sandbox/issues/6/comments
+        id: make-destination-branch-name
+        run: |
+          gh api /repos/ShebangDog/ci_sandbox/issues/${{github.event.issue.number}}/comments |
+          jq .head.ref |
+          xargs -IVAL echo  "branch_name=VAL" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.ACTIONS_BOT_TOKEN }}
-          
-
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.make-destination-branch-name.outputs.branch_name }}
+          fetch-depth: 0
+      - run: |
+          echo diff >> result
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "update expected"
+          git push

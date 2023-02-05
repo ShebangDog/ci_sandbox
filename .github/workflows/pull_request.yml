@@ -1,8 +1,5 @@
 on:
   pull_request:
-    branches:
-      - *
-
 jobs:
   update-expected-screenshot:
     runs-on: ubuntu-latest
