@@ -49,4 +49,7 @@ jobs:
       # https://cli.github.com/manual/gh_api
       - name: gh api
         run: gh api /repos/ShebangDog/ci_sandbox/pulls/${{github.event.issue.number}}/comments
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_BOT_TOKEN }}
+          
 
