@@ -37,18 +37,15 @@ jobs:
           grep -oE "\- \[ \]" |
           wc -l |
           xargs -IVAL echo "unfinished_task_count=VAL" >> $GITHUB_ENV
-
-      - run: |
-          echo "task is complete"
-        if: ${{ env.finished_task_count == 1 && env.unfinished_task_count == 1 && env.previous_task_count == 1 && env.current_task_count == 1 }}
-
-  issue_commented:
-    # This job only runs for issue comments
-    name: Issue comment
-    if: ${{ !github.event.issue.pull_request }}
+      - if: ${{ env.finished_task_count != 1 || env.unfinished_task_count != 1 || env.previous_task_count != 1 || env.current_task_count != 1 }}
+        run: exit 1
+  update-expected-image:
+    name: do update expected image
+    needs: pr_commented
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          echo A comment on issue $NUMBER
-        env:
-          NUMBER: ${{ github.event.issue.number }}
+      - run: echo ${{ github.head_ref }}
+      # GitHub CLI api
+      # https://cli.github.com/manual/gh_api
+      - run: gh api -H "Accept: application/vnd.github+json" /repos/ShebangDog/ci_sandbox/pulls/${{github.event.issue.number}}/comments
+      
