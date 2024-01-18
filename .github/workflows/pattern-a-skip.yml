@@ -3,7 +3,7 @@ on:
     pull_request
 jobs:
     job1:
-        if: contains(github.event.pull_request.labels.*.name, 'skipjob1')
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'skipjob1') }}
         runs-on: 
             ubuntu-latest
         steps:
