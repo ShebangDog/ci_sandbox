@@ -15,28 +15,28 @@ jobs:
     job2:
         runs-on: 
             ubuntu-latest
-        if: always()
+        if: ${{ always() }}
         needs: job1
         steps: 
             - run: echo ${{ job.status }}
     job3:
         runs-on:
             ubuntu-latest
-        if: cancelled()
+        if: ${{ cancelled() }}
         needs: job1
         steps: 
             - run: echo ${{ job.status }}
     job4:
         runs-on:
             ubuntu-latest
-        if: success()
+        if: ${{ success() }}
         needs: job1
         steps: 
             - run: echo ${{ job.status }}
     job5:
         runs-on:
             ubuntu-latest
-        if: failure()
+        if: ${{ failure() }}
         needs: job1
         steps: 
             - run: echo ${{ job.status }}
