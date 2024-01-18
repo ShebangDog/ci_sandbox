@@ -33,3 +33,10 @@ jobs:
         needs: job1
         steps: 
             - run: echo ${{ job.status }}
+    job5:
+        runs-on:
+            ubuntu-latest
+        if: failure()
+        needs: job1
+        steps: 
+            - run: echo ${{ job.status }}
