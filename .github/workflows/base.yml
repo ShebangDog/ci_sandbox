@@ -8,7 +8,7 @@ jobs:
         steps:
             - run: echo job1
             - run: |
-                if [ contains(github.event.issue.labels.*.name, 'failjob1') -eq "true" ]; then
+                if [ ${{ contains(github.event.pull_request.labels.name, 'failjob1') }} -eq "true" ]; then
                     exit 1
                 else 
                     echo success job1
@@ -19,7 +19,7 @@ jobs:
         steps:
             - run: echo job2
             - run: |
-                if [ contains(github.event.issue.labels.*.name, 'failjob2') -eq "true" ]; then
+                if [ ${{ contains(github.event.pull_request.labels.name, 'failjob2') }} -eq "true" ]; then
                     exit 1
                 else 
                     echo success job2
@@ -30,7 +30,7 @@ jobs:
         steps:
             - run: echo job3
             - run: |
-                if [ contains(github.event.issue.labels.*.name, 'failjob3') -eq "true" ]; then
+                if [ ${{ contains(github.event.pull_request.labels.name, 'failjob3') }} -eq "true" ]; then
                     exit 1
                 else 
                     echo success job3
