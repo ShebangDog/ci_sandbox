@@ -19,3 +19,10 @@ jobs:
         needs: job1
         steps: 
             - run: echo ${{ job.status }}
+    job3:
+        runs-on:
+            ubuntu-latest
+        if: cancelled()
+        needs: job1
+        steps: 
+            - run: echo ${{ job.status }}
