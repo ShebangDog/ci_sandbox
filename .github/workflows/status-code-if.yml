@@ -48,6 +48,7 @@ jobs:
         steps:
             - run: echo run-on-skipped
             - run: echo ${{ job.status }}
+            - run: exit 0
     run-on-skipped-success:
         runs-on:
             ubuntu-latest
