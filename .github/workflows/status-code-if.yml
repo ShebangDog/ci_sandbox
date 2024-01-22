@@ -1,6 +1,5 @@
 name: status-code-if
-on: 
-    pull_request
+on: pull_request
 jobs:
     job1:
         runs-on: 
@@ -41,3 +40,24 @@ jobs:
         needs: job1
         steps: 
             - run: echo ${{ job.status }}
+    run-on-skipped:
+        runs-on: 
+            ubuntu-latest
+        if: ${{ !failure() && !success() }}
+        needs: job1
+        steps:
+            - run: echo run-on-skipped
+    run-on-skipped-success:
+        runs-on:
+            ubuntu-latest
+        needs: run-on-skipped
+        steps:
+            - run: echo run-on-skipped-success
+    run-on-skipped-success-explicit:
+        runs-on:
+            ubuntu-latest
+        needs: run-on-skipped
+        if: ${{ success() }}
+        steps:
+            - run: echo run-on-skipped-success-explicit
+            
