@@ -12,7 +12,7 @@ jobs:
               run: git fetch origin ${{github.base_ref}}:${{github.base_ref}}
             - name: setting-diff_files
               run: |
-                git diff --name-only HEAD ${{github.base_ref}} -- "./src" >> diff.txt
+                git diff --name-only HEAD ${{github.base_ref}} -- "./src" > diff.txt
                 echo "debug"
                 cat diff.txt
             - name: use-diff_files
