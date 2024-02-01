@@ -1,0 +1,21 @@
+on: 
+    pull_request
+jobs:
+    echo-diff-with-command:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: check-current-directory
+              run: ls
+            - name: setting-diff_files
+              run: |
+                diff_files=$(git diff --name-only ${{github.head_ref}} ${{github.base_ref}} -- "./src" | tr "\n" " ")
+                echo "debug # diff_files: ${diff_files}"
+                ####
+                # ここから先に ${diff_files} を使った処理を記載
+                diff_files | 
+                xargs printf "%s%s" "diff_files=" |
+                xargs echo >> $GITHUB_ENV
+            - name: use-diff_files
+              run: |
+                echo "debug ${{env.diff_files}}"
+                
