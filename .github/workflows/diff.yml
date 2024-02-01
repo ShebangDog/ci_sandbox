@@ -9,7 +9,7 @@ jobs:
             - name: check-current-directory
               run: ls
             - name: fetch-base-branch
-              run: git fetch ${{github.base_ref}}:${{github.base_ref}}
+              run: git fetch origin ${{github.base_ref}}:${{github.base_ref}}
             - name: setting-diff_files
               run: |
                 diff_files=$(git diff --name-only HEAD ${{github.base_ref}} -- "./src" | tr "\n" " ")
