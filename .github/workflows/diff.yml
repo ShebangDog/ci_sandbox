@@ -12,14 +12,11 @@ jobs:
               run: git fetch origin ${{github.base_ref}}:${{github.base_ref}}
             - name: setting-diff_files
               run: |
-                diff_files=$(git diff --name-only HEAD ${{github.base_ref}} -- "./src" | tr "\n" " ")
-                echo "debug # diff_files: ${diff_files}"
-                ####
-                # ここから先に ${diff_files} を使った処理を記載
-                diff_files | 
-                xargs printf "%s%s" "diff_files=" |
-                xargs echo >> $GITHUB_ENV
+                git diff --name-only HEAD ${{github.base_ref}} -- "./src" >> diff.txt
+                echo "debug"
+                cat diff.txt
             - name: use-diff_files
               run: |
-                echo "debug ${{env.diff_files}}"
+                cat diff.txt
+                cat diff.txt | echo
                 
