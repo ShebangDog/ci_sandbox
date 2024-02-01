@@ -1,0 +1,33 @@
+on: 
+    pull_request
+jobs:
+    echo-diff-with-command:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+            - name: check-current-directory
+              run: ls
+            - name: fetch-base-branch
+              run: git fetch origin ${{github.base_ref}}:${{github.base_ref}}
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+      
+            - name: Install dependencies
+              run: yarn install --frozen-lockfile
+      
+            - name: Fetch base branch
+              run: git fetch origin ${{github.base_ref}}:${{github.base_ref}}
+      
+            - name: Make all_diff_files
+              run: |
+                git diff --name-only --diff-filter=ACMRTUXB HEAD ${{github.base_ref}} > ../.github/all_diff_files
+      
+            - name: Take src_ts_tsx_diff_files
+              run: |
+                cat ../.github/all_diff_files | grep -E "app-web/src/.*.elm$" > ../.github/src_ts_tsx_diff_files
+      
+            - name: Take spec_diff_files
+              run: |
+                cat ../.github/all_diff_files | grep -E "server/src/.*.scala*" > ../.github/spec_diff_files

@@ -1,0 +1,24 @@
+name: pattern-a(A->B/B->C)
+on: 
+    pull_request
+jobs:
+    job1:
+        runs-on: 
+            ubuntu-latest
+        steps:
+            - run: echo job1
+            - run: echo success job1
+    job2:
+        needs: job1
+        runs-on: 
+            ubuntu-latest
+        steps:
+            - run: echo job2
+            - run: echo success job2
+    job3: 
+        needs: job2
+        runs-on: 
+            ubuntu-latest
+        steps:
+            - run: echo job3
+            - run: echo success job3
