@@ -1,8 +1,6 @@
-name: pattern-a(A->B/A,B->C)
+name: pattern-b(A->B/A,B->C)
 on: 
-    pull_request: 
-        branches: 
-            - '**'
+    pull_request
 jobs:
     job1:
         runs-on: 
