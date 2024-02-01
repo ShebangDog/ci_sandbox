@@ -3,11 +3,12 @@ on:
     pull_request
 jobs:
     job1:
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'skipjob1') }}
         runs-on: 
             ubuntu-latest
         steps:
             - run: echo job1
-            - run: if [ contains(github.event.issue.labels.*.name, 'failjob1') -eq "true" ]; then
+            - run: if [ "contains(github.event.pull_request.labels.*.name, 'failjob1')" = "true" ]; then
                         exit 1
                     else 
                         echo success job1
@@ -18,7 +19,7 @@ jobs:
             ubuntu-latest
         steps:
             - run: echo job2
-            - run: if [ contains(github.event.issue.labels.*.name, 'failjob2') -eq "true" ]; then
+            - run: if [ "contains(github.event.pull_request.labels.*.name, 'failjob2')" = "true" ]; then
                         exit 1
                     else 
                         echo success job2

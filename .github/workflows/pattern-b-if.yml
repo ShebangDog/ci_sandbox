@@ -1,0 +1,33 @@
+name: pattern-b(A->B/A,B->C)
+on: 
+    pull_request
+jobs:
+    job1:
+        runs-on: 
+            ubuntu-latest
+        steps:
+            - run: echo job1
+            - run: if [ "contains(github.event.pull_request.labels.*.name, 'failjob1')" = "true" ]; then
+                        exit 1
+                    else 
+                        echo success job1
+                    fi
+    job2:
+        needs: job1
+        runs-on: 
+            ubuntu-latest
+        steps:
+            - run: echo job2
+            - run: if [ "contains(github.event.pull_request.labels.*.name, 'failjob2')" = "true" ]; then
+                        exit 1
+                    else 
+                        echo success job2
+                    fi
+    job3: 
+        needs: [job1, job2]
+        runs-on: 
+            ubuntu-latest
+        steps:
+            - run: echo job3
+            - run: echo success job3
+            
