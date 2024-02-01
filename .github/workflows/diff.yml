@@ -4,6 +4,8 @@ jobs:
     echo-diff-with-command:
         runs-on: ubuntu-22.04
         steps:
+            - name: checkout
+              uses: actions/checkout@v4
             - name: check-current-directory
               run: ls
             - name: setting-diff_files
