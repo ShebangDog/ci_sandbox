@@ -18,5 +18,5 @@ jobs:
             - name: use-diff_files
               run: |
                 cat diff.txt
-                cat diff.txt | echo
+                cat diff.txt | xargs echo
                 
